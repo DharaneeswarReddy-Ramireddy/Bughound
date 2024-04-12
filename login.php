@@ -1,52 +1,56 @@
 <?php
+
 session_start();
 
+
 $host = 'localhost';
-$dbname = 'bug_tracker';
-$dbUsername = 'root';
-$dbPassword = '';
+$dbname = 'bug_db'; 
+$username = 'root';
+$password = '';
 
-$conn = new mysqli($host, $dbUsername, $dbPassword, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Database connection failed: " . $e->getMessage());
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    
     $username = $_POST['username'];
-    $inputPassword = $_POST['password']; // The password entered by the user
+    $password = hash('sha256', $_POST['password']); // Hash the password using SHA-256
     $userType = $_POST['userType'];
 
-    // Adjust the SQL to fetch the password for verification
-    $sql = "SELECT id, password FROM users WHERE username = ? AND userType = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ss", $username, $userType);
-    $stmt->execute();
-    $result = $stmt->get_result();
+        $sql = "SELECT * FROM users WHERE username = ? AND userType = ?";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$username, $userType]);
+    $user = $stmt->fetch();
 
-    if ($row = $result->fetch_assoc()) {
-        // Now verify the password against the hashed password in the database
-        if (password_verify($inputPassword, $row['password'])) {
-            // Password is correct
+        if ($user) {
+        if ($password === $user['password']) { 
+            
             $_SESSION['username'] = $username;
             $_SESSION['userType'] = $userType;
-
-            if ($userType == 'admin') {
-                header("Location: admin_dashboard.php");
-            } else {
-                header("Location: employee_dashboard.php");
+            
+            // Redirect to dashboard based on user type
+            if ($userType === 'admin') {
+                header('Location: admin_dashboard.php');
+                exit();
+            } elseif ($userType === 'employee') {
+                header('Location: employee_dashboard.php');
+                exit();
             }
-            exit;
         } else {
-            // Password didn't match
-            echo "Invalid username or password.";
+            
+            echo 'Invalid password. Please try again.';
         }
     } else {
-        // No user found
-        echo "Invalid username or password.";
+        
+        echo 'User not found. Please try again.';
     }
-
-    $stmt->close();
-    $conn->close();
+} else {
+    
+    header('Location: index.html');
+    exit();
 }
 ?>

@@ -1,0 +1,2 @@
+[2024-03-25 21:05:23] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'program_id' in 'field list'
+[2024-03-25 21:07:04] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'program_id' in 'field list'

@@ -1,0 +1,128 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+header {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    text-align: center;
+    margin: 15px 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+main {
+    padding: 20px;
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+form#searchForm {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+form#searchForm input[type="text"],
+form#searchForm input[type="date"],
+form#searchForm select,
+form#searchForm textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #007bff;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+form#searchForm input[type="checkbox"] {
+    margin-top: 5px;
+    margin-left: 5px;
+    vertical-align: middle;
+}
+
+form#searchForm button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 12px;
+    border-radius: 4px;
+    margin-top: 10px;
+    width: auto;
+}
+
+form#searchForm button:hover {
+    background-color: #218838;
+}
+
+#bugSection h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#bugList {
+    list-style: none;
+    padding: 0;
+}
+
+#bugList li {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+#bugList li:hover {
+    background-color: #f0f0f0;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #333;
+    color: white;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+    nav ul li {
+        display: block;
+        margin: 10px 0;
+    }
+}

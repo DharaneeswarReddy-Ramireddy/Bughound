@@ -8,7 +8,7 @@ if ($_SESSION['userType'] != 'admin') {
 if (isset($_GET['id'])) {
     $userId = $_GET['id'];
 
-    $conn = new mysqli('localhost', 'root', '', 'bug_tracker');
+    $conn = new mysqli('localhost', 'root', '', 'bug_db');
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }

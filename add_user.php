@@ -1,12 +1,12 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $conn = new mysqli('localhost', 'root', '', 'bug_tracker');
+    $conn = new mysqli('localhost', 'root', '', 'bug_db');
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
     $username = $_POST['username'];
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT); // Hash the password
+    $password = hash('sha256', $_POST['password']); // Hash the password
     $userType = $_POST['userType'];
 
     $stmt = $conn->prepare("INSERT INTO users (username, password, userType) VALUES (?, ?, ?)");
